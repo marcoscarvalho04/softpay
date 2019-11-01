@@ -1,4 +1,4 @@
-/*import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, Connection, Double } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, Connection, Double } from 'typeorm';
 
 
 @Entity('paymentorder')
@@ -13,8 +13,8 @@ export class PaymentOrder {
   @Column({nullable: false})
   merchantId: number;
 
-  @Column({nullable: false})
-  value: Double 
+  @Column("decimal" , {precision: 5, scale: 2})
+  value: number 
 
   @Column({ nullable: false })
   createDate: Date 
@@ -22,10 +22,10 @@ export class PaymentOrder {
   @Column({ nullable: false })
   validDate: Date
 
-  @Column({ nullable: false})
+  @Column({ nullable: false, default: 'PENDING_REGISTRATION'})
   paymentStatus: string
 
-  @Column({ nullable: false})
+  @Column({ nullable: false, default: 'PENDING_REGISTRATION'})
   registrationStatus: string
 
   @Column({ nullable: true })
@@ -38,4 +38,4 @@ export class PaymentOrder {
   errorRegistration: string
 
   
-}*/
+}

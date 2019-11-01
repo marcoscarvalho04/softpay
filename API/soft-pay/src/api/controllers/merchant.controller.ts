@@ -40,13 +40,14 @@ export class MerchantController {
       throw new HttpException('CNPJ já existe',HttpStatus.BAD_REQUEST);
     }
     let resultEmail = this.service.findByEmail(body.email);
-    if(resultEmail == undefined) {
+    if(resultEmail != undefined) {
       throw new HttpException('Email já cadastrado!', HttpStatus.BAD_REQUEST);
     }else {
-      return await this.service.create(body).catch(Merchant => {
+      return await this.service.create(body)
+      //.catch(Merchant => {
         //return new Result('Erro ao cadastrar o estabelecimento', false, null,  HttpStatus.BAD_REQUEST);
-        throw new HttpException('Erro ao cadastrar o estabelecimento!', HttpStatus.INTERNAL_SERVER_ERROR);
-      });
+        //throw new HttpException('Erro ao cadastrar o estabelecimento!', HttpStatus.INTERNAL_SERVER_ERROR);
+      //});
     }
       
     
