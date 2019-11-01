@@ -54,6 +54,16 @@ export class PaymentController {
     }
   }
 
+  @Get('/merchant/:id')
+  async findAllByMerchantId(@Param('id') merchantId) {
+    let result = await this.service.findByMerchantId(merchantId); 
+    if(result == undefined){
+      throw new NotFoundException('ID do estabelecimento não encontrado!');
+    } else {
+      return await this.service.findAllByMerchantId(merchantId);
+    }
+  }
+
 }
 
  

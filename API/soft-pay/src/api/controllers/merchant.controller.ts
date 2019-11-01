@@ -36,11 +36,11 @@ export class MerchantController {
   @UseInterceptors(new ValidatorInterceptor(new MerchantContract))
   async authenticate(@Body() body: Merchant) {
     let result = await this.service.findByCnpj(body.cnpj);
+    let resultEmail = await this.service.findByEmail(body.email);
     if(result != undefined){
       throw new HttpException('CNPJ já existe',HttpStatus.BAD_REQUEST);
     }
-    let resultEmail = this.service.findByEmail(body.email);
-    if(resultEmail != undefined) {
+    else if(resultEmail != undefined) {
       throw new HttpException('Email já cadastrado!', HttpStatus.BAD_REQUEST);
     }else {
       return await this.service.create(body)
@@ -89,7 +89,6 @@ export class MerchantController {
   }
 
   @Get('/login/:login/:senha')
-  @UseInterceptors(new ValidatorInterceptor(new LoginContract))
   async login(@Param('login') login, @Param('senha') senha ){
      let result = await this.service.authenticate(login)
      if(result == undefined) {
@@ -97,7 +96,7 @@ export class MerchantController {
     } else if(result.password != undefined && result.password != senha) {
       throw new BadRequestException('Usuário ou senha inválidos')
     } else {
-      return'Login ok'
+      return result
     }
   }
 }

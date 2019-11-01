@@ -36,8 +36,8 @@ export class Merchant {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ nullable: false, default: 0 })
-  cash: string;
+  @Column("decimal" , {precision: 25, scale: 2, default: 0})
+  cash: number;
 
   
  

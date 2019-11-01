@@ -47,4 +47,8 @@ export class PaymentOrderService {
   async save(paymentOrder: PaymentOrder){
     return await this.repository.save(paymentOrder);
   }
+
+  async findAllByMerchantId(id): Promise<PaymentOrder[]> {
+    return await this.repository.find({where: {merchantId: id}})
+  }
 }

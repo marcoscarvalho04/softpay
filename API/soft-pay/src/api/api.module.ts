@@ -9,11 +9,14 @@ import { Bank } from './entities/bank.entity';
 import { PaymentOrderService } from './services/paymentorder.service';
 import {PaymentController} from './controllers/paymentorder.controller'
 import { PaymentOrder } from './entities/paymentOrder.entity';
+import { TransferService } from './services/transfer.service';
+import { TransferController } from './controllers/transfer.controller';
+import {Transfer} from './entities/transfer.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Merchant,Bank,PaymentOrder])],
-  providers: [MerchantService,BankService, PaymentOrderService],
-  controllers: [MerchantController,BankController, PaymentController]
+  imports: [TypeOrmModule.forFeature([Merchant,Bank,PaymentOrder,Transfer])],
+  providers: [MerchantService,BankService, PaymentOrderService,TransferService],
+  controllers: [MerchantController,BankController, PaymentController,TransferController]
   
 })
 export class ApiModule {}
