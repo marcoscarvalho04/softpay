@@ -22,7 +22,9 @@ export class BankService   {
   }
 
   async update(bank: Bank)  {
-    return await this.repository.update(bank.id, bank);
+    let id = bank.id; 
+    delete bank.id
+    return await this.repository.update({id: id}, bank);
   }
 
   async delete(id){

@@ -31,19 +31,20 @@ export class MerchantService implements GenericService  {
   }
 
   async update(merchant: Merchant) {
-     this.repository.update(merchant.id, merchant);
+    let id = merchant.id; 
+     delete merchant.id;
+     this.repository.update({id: id }, merchant)
      return merchant;
   }
 
-  async authenticate(merchant: Merchant): Promise<Merchant> {
-    
-    if(merchant.cnpj != undefined && merchant.cnpj.length == 14){
-      return this.repository.findOne({cnpj: merchant.cnpj});
-    } else {
-      return this.repository.findOne({email: merchant.email});
+  async authenticate(login): Promise<Merchant> {
+
+    let result = await this.repository.findOne({cnpj: login});
+    if(result == undefined) {
+      return await this.repository.findOne({email: login})
+    }else {
+      return result; 
     }  
-    
-    
   }
 
   async findByCnpj(cnpj) {
