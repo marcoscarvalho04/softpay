@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
-import { Bank } from './bank.entity';
+
 
 @Entity('merchant')
 export class Merchant {
@@ -7,27 +7,27 @@ export class Merchant {
   id: number;
 
   @Column({nullable: false, unique : true})
-  cnpj: number;
+  cnpj: string;
 
-  @Column({nullable: false, unique: true})
+  @Column({nullable: true})
   socialName: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   openingDate: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   fantasyName: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   address: string;
 
   @Column({ nullable: true })
   addressComplement: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   addressCity: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   addressUF: string;
 
   @Column({ nullable: false, unique: true })
@@ -39,8 +39,6 @@ export class Merchant {
   @Column({ nullable: false, default: 0 })
   cash: string;
 
-  @OneToMany(type => Bank, bank => bank.merchant)
-  bank: Bank[]
-
+  
  
 }

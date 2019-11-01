@@ -1,13 +1,14 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, Connection } from 'typeorm';
-import {Merchant} from '../entities/merchant.entity'
+
 
 @Entity('bank')
 export class Bank {
+  
   @PrimaryGeneratedColumn()
   id: number;  
 
-  @ManyToOne(type => Merchant, merchant => merchant.bank,{cascade:true})
-  merchant: Merchant
+  @Column({nullable: true})
+  merchantId: number
 
   @Column({nullable: false})
   bankNumber: number;

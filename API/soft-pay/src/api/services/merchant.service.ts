@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Merchant } from '../entities/merchant.entity'
@@ -31,7 +31,26 @@ export class MerchantService implements GenericService  {
   }
 
   async update(merchant: Merchant) {
-    return await this.repository.update(merchant.id, merchant);
+     this.repository.update(merchant.id, merchant);
+     return merchant;
+  }
+
+  async authenticate(merchant: Merchant): Promise<Merchant> {
+    
+    if(merchant.cnpj != undefined && merchant.cnpj.length == 14){
+      return this.repository.findOne({cnpj: merchant.cnpj});
+    } else {
+      return this.repository.findOne({email: merchant.email});
+    }  
+    
+    
+  }
+
+  async findByCnpj(cnpj) {
+    return await this.repository.findOne({cnpj: cnpj})
+  }
+  async findByEmail(email){ 
+    return await this.repository.findOne({email: email});
   }
 
 }

@@ -17,8 +17,20 @@ export class BankService   {
     return await this.repository.findOne({ id })
   }
 
-  async create(bank: Bank) {
-    return await this.repository.save(bank)
+  async create(bank: Bank): Promise<Bank> {
+    return await this.repository.save(bank);
+  }
+
+  async update(bank: Bank)  {
+    return await this.repository.update(bank.id, bank);
+  }
+
+  async delete(id){
+    return await this.repository.delete(id);
+  }
+  
+  async findByBankType(bankType) {
+    return await this.repository.findOne({bankType: bankType})
   }
 
 }

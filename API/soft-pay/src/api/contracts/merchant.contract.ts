@@ -22,20 +22,11 @@ export class MerchantContract implements Contract {
     const jarvis = new Jarvis()
 
     
-    jarvis.isRequired(model.cnpj, 'O CNPJ é obrigatório.')
-    jarvis.isRequired(model.socialName, 'Razão social é obrigatoria')
-    jarvis.isRequired(model.openingDate, 'Data de abertura é obrigatoria') 
-    jarvis.isRequired(model.fantasyName, 'Nome fantasia é obrigatorio') 
-    jarvis.isRequired(model.address, 'Endereço é obrigatorio')
-    jarvis.isRequired(model.addressCity, 'Cidade é obrigatoria')
-    jarvis.isRequired(model.addressUF, 'UF da cidade é obrigatoria') 
-    jarvis.isFixedLen(model.addressUF,2,'UF deve ter apenas dois caracteres')
+    jarvis.isFixedLen(model.cnpj,14, 'O CNPJ é obrigatório e tem tamanho de 14.')
     jarvis.isRequired(model.email, 'Email é obrigatório')
     jarvis.isEmail(model.email,'Email não está formatado corretamente')
     jarvis.isRequired(model.password,'Senha é requerida')
-    jarvis.hasMinLen(model.fantasyName, 1, 'O nome Fantasia é obrigatório')
-
- 
+   
     this.errors = jarvis.errors
 
     return jarvis.isValid()
